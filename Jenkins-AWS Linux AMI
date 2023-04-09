@@ -11,3 +11,18 @@
    12  systemctl status jenkins
    13  systemctl enable jenkins
    14  cat /var/lib/jenkins/secrets/initialAdminPassword
+   
+   
+   
+   ====== ====== ====== ====== ====== ====== ====== ====== ====== ====== ====== ====== ====== ====== ====== ====== ====== ====== ======
+   
+   If you see any errors ->  warning: /var/cache/yum/x86_64/2/jenkins/packages/jenkins-2.387.2-1.1.noarch.rpm: 
+   Header V4 RSA/SHA512 Signature, key ID ef5975ca: NOKEY
+   Public key for jenkins-2.387.2-1.1.noarch.rpm is not installed
+
+   please use below command:
+
+   sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io-2023.key
+   
+   
+   ====== ====== ====== ====== ====== ====== ====== ====== ====== ====== ====== ====== ====== ====== ====== ====== ====== ====== ======
