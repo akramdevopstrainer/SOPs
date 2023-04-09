@@ -1,6 +1,6 @@
     1  sudo amazon-linux-extras install java-openjdk11 -y
     2  java -version
-    3  sudo amazon-linux-extras install epel
+    3  sudo amazon-linux-extras install epel -y
     5  curl --silent --location http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo | sudo tee /etc/yum.repos.d/jenkins.repo
     6  cd /etc/yum.repos.d/
     7  ll
