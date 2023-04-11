@@ -13,7 +13,6 @@ This repository contains a collection of Standard Operating Procedures (SOPs) fo
 
 To get started, clone this repository to your local machine using the following command:
 
-```bash
 git clone https://github.com/yourusername/installation-sops.git
 
 Once cloned, you can navigate to the respective tool's SOP directory and view the installation instructions in the markdown file.
