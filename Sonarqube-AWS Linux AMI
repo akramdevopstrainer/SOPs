@@ -1,0 +1,76 @@
+#!/bin/bash
+
+# SonarQube Installation Script
+
+# Prerequisites:
+# - Linux system
+# - Java OpenJDK 11 or higher
+# - Sufficient system resources (RAM, CPU, storage)
+# - Compatible operating system version
+
+# Install Java OpenJDK 11
+sudo amazon-linux-extras install java-openjdk11 -y
+
+# Verify Java installation
+java -version
+
+# Change directory to /opt/
+cd /opt/
+
+# Download SonarQube package
+wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-8.9.10.61524.zip
+
+# Unzip the SonarQube package
+unzip sonarqube-8.9.10.61524.zip
+
+# Rename the extracted directory to "sonar"
+mv sonarqube-8.9.10.61524 sonar
+
+# Change directory to sonar/bin
+cd sonar/bin
+
+# Change directory to linux-x86-64
+cd linux-x86-64
+
+# Go back to sonar/bin directory
+cd ..
+
+# Change directory to conf
+cd conf
+
+# Open the sonar.properties file
+cat sonar.properties
+
+# Go back to the parent directory
+cd ..
+
+# Create a new user for SonarQube
+useradd sonar
+
+# Set a password for the sonar user
+passwd sonar
+
+# Change ownership of the SonarQube directory to the sonar user
+chown -R sonar:sonar sonar/
+
+# Change directory to sonar
+cd sonar
+
+# Change directory to bin
+cd bin
+
+# Change directory to linux-x86-64
+cd linux-x86-64
+
+# Open the sonar.sh file for editing
+vi sonar.sh
+
+# Replace RUN_AS_USER with sonar in sonar.sh file
+RUN_AS_USER=sonar
+(note: remove # from the beginning of the line to uncomment)
+
+# Start SonarQube
+sh sonar.sh start
+
+# Check the status of SonarQube
+sh sonar.sh status
