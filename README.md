@@ -23,9 +23,11 @@ This repository currently includes SOPs for the following tools:
 Jenkins :gear:
 Apache Maven :hammer_and_wrench:
 SonarQube :mag:
+
 We continuously update and add more SOPs as needed. If you would like to contribute, please see the Contributing section.
 
 Contributing :raised_hands:
+
 We welcome contributions to this repository! If you would like to add, modify, or improve the existing SOPs, please follow these steps:
 
 1. Fork the repository to your GitHub account.
