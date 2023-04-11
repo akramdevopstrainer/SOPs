@@ -32,8 +32,8 @@ cd /etc/profile.d/
 vim maven.sh
 
 # In Vim editor, press 'i' to enter insert mode, and copy paste below contents:
-# export M2_HOME=/opt/maven
-# export PATH=${M2_HOME}/bin:${PATH}
+ export M2_HOME=/opt/maven
+ export PATH=${M2_HOME}/bin:${PATH}
 # Press 'esc' to exit insert mode, then type ':wq' to save and exit Vim
 
 ## Modify permissions of "maven.sh" file to allow all users to have full read, write, and execute permissions
