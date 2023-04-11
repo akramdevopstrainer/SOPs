@@ -1,78 +1,46 @@
-Steps to install maven on AWS - EC2 - Amazon Linux
+# Steps to Install Maven on AWS EC2 - Amazon Linux
 
--> Launch an EC2 with below AMI 
+## Launch an EC2 with below AMI
+id: ami-09f7fbc41963e146f
+name: amzn2-ami-kernel-5.10-hvm-2.0.20230404.0-x86_64-gp2
 
-  id: ami-09f7fbc41963e146f
-  name : amzn2-ami-kernel-5.10-hvm-2.0.20230404.0-x86_64-gp2
-  
--> install the OpenJDK (Java Development Kit) version 1.8.0
+## Install OpenJDK (Java Development Kit) version 1.8.0
+sudo yum install java-1.8.0-openjdk-devel
 
-  # sudo yum install java-1.8.0-openjdk-devel
-  
--> Check java version
+## Check Java version
+java -version
 
-  # java -version
-  
--> switch to /opt (optional)
+## Switch to /opt (optional)
+cd /opt/
 
-  # cd /opt/
-  
--> use the "wget" utility to download Apache Maven from the official website
+## Use "wget" utility to download Apache Maven from official website
+wget https://dlcdn.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.zip
 
-  # wget https://dlcdn.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.zip
-  
--> unzaip downloaded zip file
+## Unzip downloaded zip file
+unzip apache-maven-3.8.8-bin.zip
 
-  # unzip apache-maven-3.8.8-bin.zip
-  
--> rename unzaip file (optional)
+## Rename unzipped file (optional)
+mv apache-maven-3.8.8 maven
 
-  # mv apache-maven-3.8.8 maven
-  
--> switch to maven/
+## Switch to maven/
+cd maven/
 
-  # cd maven/
-  
--> switch to profile.d
+## Switch to profile.d
+cd /etc/profile.d/
 
-  # cd /etc/profile.d/
-  
--> Create a new file for maven script
+## Create a new file for Maven script
+vim maven.sh
 
-  # vim maven.sh
-  
-  press 'i' and you will be in insert mode
-  copy paste below contents 
+# In Vim editor, press 'i' to enter insert mode, and copy paste below contents:
+# export M2_HOME=/opt/maven
+# export PATH=${M2_HOME}/bin:${PATH}
+# Press 'esc' to exit insert mode, then type ':wq' to save and exit Vim
 
-   export M2_HOME=/opt/maven 
-   export PATH=${M2_HOME}/bin:${PATH}
+## Modify permissions of "maven.sh" file to allow all users to have full read, write, and execute permissions
+chmod 777 maven.sh
 
-  press 'esc' and shift+zz
+## Execute the commands and set environment variables defined in "maven.sh" file in current shell session
+source maven.sh
 
-(First line sets an environment variable named "M2_HOME" and assigns it the value "/opt/maven". Environment variables are used to store configuration 
-information that can be accessed by various programs running on a system. In this case, "M2_HOME" is set to the installation directory of Maven. 
-Second line ine appends the "bin" directory of the Maven installation directory to the "PATH" environment variable. The "PATH" variable is used by the 
-system to locate executable files, and adding Maven's "bin" directory to the "PATH" allows you to run Maven commands from any location in the command 
-line without specifying the full path to the Maven executable. The "${M2_HOME}/bin" part of the line expands to the Maven installation directory followed 
-by "/bin", and the "${PATH}" part appends the existing "PATH" value to it)
-  
--> modify the permissions of the "maven.sh" file to allow all users to have full read, write, and execute permissions
-
-   change mode = chmod : In Linux, file permissions are represented by a three-digit number, where each digit represents the permissions for the owner, 
-   group, and others, respectively. The digits can have values ranging from 0 to 7, with each value representing a different set of permissions: 0 (---) 
-   means no permissions, 7 (rwx) means full permissions, and values in between represent combinations of read (r), write (w), and execute (x) permissions. 
-   In this case, "777" means that the file will have full permissions for all users, including the owner, group, and others.
-
-  # chmod 777 maven.sh
-
--> execute the commands and set the environment variables defined in the "maven.sh" file in the current shell session
-
-  # source maven.sh
-  
--> Check and confirm maven installation
-
-  # mvn --version
-
-  
-
-
+## Check and confirm Maven installation
+mvn --version
