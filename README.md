@@ -29,10 +29,11 @@ We continuously update and add more SOPs as needed. If you would like to contrib
 Contributing :raised_hands:
 We welcome contributions to this repository! If you would like to add, modify, or improve the existing SOPs, please follow these steps:
 
-Fork the repository to your GitHub account.
-Create a new branch with a descriptive name for your changes.
-Make your changes and ensure that the markdown files are properly formatted.
-Commit your changes with clear and concise commit messages.
-Push your changes to your forked repository.
-Submit a pull request to the main repository.
+1. Fork the repository to your GitHub account.
+2. Create a new branch with a descriptive name for your changes.
+3. Make your changes and ensure that the markdown files are properly formatted.
+4. Commit your changes with clear and concise commit messages.
+5. Push your changes to your forked repository.
+6. Submit a pull request to the main repository.
+
 We appreciate your contributions and will review and merge them as appropriate. :tada:
