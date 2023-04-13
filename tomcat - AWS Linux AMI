@@ -1,0 +1,67 @@
+# Step 1: Launch an instance
+## Prerequisites
+
+Before you begin, be sure that you've completed the steps in Setting up to use Amazon EC2.
+- Once you have ec2 running change the security group inbound rules
+- Type = SSH : Protocol = TCP : port range = 22 : source = anywhere ipv4
+- Type = Custom TCP : Protocol = TCP : port range = 8080 : source = anywhere ipv4
+
+# Step 2: Install Java
+
+Login to your EC2 via putty / Mobaxterm
+
+Switch to root
+sudo su
+
+Install java
+yum install java-1.8.0-openjdk-devel -y
+
+Validate installed java version
+java -version
+You should be able to see java version as “openjdk version “1.8.0_342”
+
+Switch to /opt (try installing all tools and plugins on /opt) 
+cd /opt/
+ll
+
+# Step 3: Install tomcat
+
+Download tomcat from the apache site (yum install wget -> if you see a wget command not found error)
+wget https://archive.apache.org/dist/tomcat/tomcat-7/v7.0.106/bin/apache-tomcat-7.0.106.tar.gz
+
+As soon as the tomcat download is complete, run
+ll 
+You should see apache-tomcat-7.0.106.tar.gz
+run tar -xvf apache-tomcat-7.0.106.tar.gz to unzip the file
+ll
+
+Now you will see an unzipped file apache-tomcat-7.0.106
+Rename the file using the below command -> 
+mv apache-tomcat-7.0.106 tomcat
+ll -> you should now see apache-tomcat-7.0.106 changed to tomcat.
+cd /tomcat
+cd /bin
+sh startup.sh (to start tomcat)
+
+Now fetch public IP from AWS console and login to tomcat via browser
+http://<your ec2 public IP>:8080
+
+You should see your tomcat URL launch and home page - 
+
+Setup user account to access tomcat
+
+On your ec2, switch to cd conf/
+vim tomcat-users.xml
+Scroll down to the bottom one line above </tomcat-users>
+
+- Press ‘i’ you will be on insert mode.
+- Copy and paste <user username="tomcat" password="tomcat" roles="manager-gui"/>
+- As you made changes under conf/ you need to restart tomcat by using below steps
+- cd bin/
+- sh shutdown.sh
+- sh startup.sh
+
+Relaunch http://<your ec2 public IP>:8080 and login using below credentials
+
+-> username = tomcat
+-> password = tomcat
