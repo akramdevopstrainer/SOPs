@@ -1,0 +1,59 @@
+# Launch Nginx on AWS EC2 Instance
+
+This SOP provides step-by-step instructions to launch Nginx on an AWS EC2 instance using Amazon Linux 2 AMI with the specified AMI name "amzn2-ami-kernel-5.10-hvm-2.0.20230404.1-x86_64-gp2".
+
+## Step 1: Launch EC2 Instance
+
+1. Log in to the AWS Management Console.
+2. Go to the EC2 service.
+3. Click on the "Launch Instances" button.
+4. Select the "Amazon Linux 2 LTS" AMI from the list of available AMIs.
+5. Choose an instance type that meets your requirements and click "Next: Configure Instance Details".
+6. In the "Configure Instance Details" section, configure the instance settings such as the number of instances, VPC, subnet, etc., as per your requirements.
+7. Click "Next: Add Storage" to configure the storage settings for the instance.
+8. Optionally, you can add additional storage volumes if required.
+9. Click "Next: Add Tags" to add any tags to the instance for better organization and management.
+10. Click "Next: Configure Security Group" to configure the security group settings for the instance.
+11. Configure the security group rules to allow incoming traffic on port 22 (SSH) and port 80 (HTTP) to allow SSH access and Nginx traffic.
+12. Click "Review and Launch" to review your instance settings.
+13. Review your settings and click "Launch" to launch the EC2 instance.
+14. Choose an existing key pair or create a new key pair to securely connect to the instance via SSH.
+15. Click "Launch Instances" to launch the EC2 instance.
+
+## Step 2: Connect to EC2 Instance
+
+1. Once the instance is launched, note down the public IP or DNS name of the instance from the EC2 dashboard.
+2. Open a terminal or command prompt on your local machine.
+3. Navigate to the directory where your key pair (.pem) file is stored.
+4. Run the following command to connect to the EC2 instance using SSH, replacing `<YOUR-KEY-PAIR-FILE>` with the path to your key pair file and `<INSTANCE-PUBLIC-IP>` with the public IP or DNS name of your EC2 instance:
+
+   ssh -i <YOUR-KEY-PAIR-FILE>.pem ec2-user@<INSTANCE-PUBLIC-IP>
+
+Enter "yes" to confirm the SSH fingerprint and establish a connection to the EC2 instance.
+
+Step 3: Install Nginx
+Update the package manager on the EC2 instance by running the following command:
+
+
+sudo yum update -y
+Install Nginx by running the following command:
+
+
+sudo yum install nginx -y
+Start the Nginx service by running the following command:
+
+
+sudo systemctl start nginx
+Enable Nginx to start automatically on boot by running the following command:
+
+sudo systemctl enable nginx
+
+Step 4: Access Nginx Web Server
+
+Open a web browser on your local machine.
+
+Enter the public IP or DNS name of the EC2 instance in the address bar.
+
+You should now be able to access the Nginx web server running on the EC2 instance.
+
+Note: Please replace `<YOUR-KEY-PAIR-FILE>` with the actual path
