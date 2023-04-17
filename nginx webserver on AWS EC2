@@ -39,7 +39,7 @@ sudo yum update -y
 Install Nginx by running the following command:
 
 
-sudo yum install nginx -y
+sudo amazon-linux-extras install nginx1
 Start the Nginx service by running the following command:
 
 
