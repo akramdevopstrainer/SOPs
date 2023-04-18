@@ -33,23 +33,18 @@ Enter "yes" to confirm the SSH fingerprint and establish a connection to the EC2
 
 Step 3: Install Nginx
 Update the package manager on the EC2 instance by running the following command:
-
-
 sudo yum update -y
+
 Install Nginx by running the following command:
-
-
 sudo amazon-linux-extras install nginx1
+
 Start the Nginx service by running the following command:
-
-
 sudo systemctl start nginx
-Enable Nginx to start automatically on boot by running the following command:
 
+Enable Nginx to start automatically on boot by running the following command:
 sudo systemctl enable nginx
 
 Step 4: Access Nginx Web Server
-
 Open a web browser on your local machine.
 
 Enter the public IP or DNS name of the EC2 instance in the address bar.
@@ -57,3 +52,5 @@ Enter the public IP or DNS name of the EC2 instance in the address bar.
 You should now be able to access the Nginx web server running on the EC2 instance.
 
 Note: Please replace `<YOUR-KEY-PAIR-FILE>` with the actual path
+
+cat > /usr/share/nginx/html/index.html for changes on your webpage.
