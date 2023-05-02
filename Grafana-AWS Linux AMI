@@ -1,0 +1,19 @@
+Installing Grafana on AWS EC2 Amazon Linux AMI
+
+Step 1: Update the system
+sudo yum update -y
+
+Step 2: Download and install Grafana
+sudo yum install -y https://dl.grafana.com/oss/release/grafana-9.4.0-1.x86_64.rpm
+
+Step 3: Start the Grafana server
+sudo systemctl start grafana-server
+
+Step 4: Enable Grafana to start on system boot
+sudo systemctl enable grafana-server
+
+Step 5: Check the status of Grafana
+sudo systemctl status grafana-server
+
+That's it! You have successfully installed and configured Grafana on your Amazon Linux AMI instance.
+Now you can access the Grafana web interface using the public IP of your EC2 instance on port 3000.
