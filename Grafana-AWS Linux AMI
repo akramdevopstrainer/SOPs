@@ -17,3 +17,28 @@ sudo systemctl status grafana-server
 
 That's it! You have successfully installed and configured Grafana on your Amazon Linux AMI instance.
 Now you can access the Grafana web interface using the public IP of your EC2 instance on port 3000.
+
+
+
+**********
+
+To create a default dashboard for Prometheus in Grafana, you can use the pre-built dashboard templates available in the Grafana library. 
+Follow the steps below:
+
+• Log in to your Grafana dashboard and click on the "+" icon on the left-hand side menu to create a new dashboard.
+• In the "Create Dashboard" window, click on the "Import" option.
+• In the "Import Dashboard" window, you will see a search bar. Type "Prometheus" and hit enter.
+• You will now see a list of pre-built dashboards for Prometheus. Choose the one that you want to import by clicking on the dashboard name or thumbnail.
+• In the next window, you can customize the dashboard title and choose the data source. Select the Prometheus data source that you added earlier.
+• Click on the "Import" button to import the dashboard.
+
+Here are a few more examples of Grafana dashboards for Prometheus:
+
+Dashboard ID 10955 - Prometheus 2.0 Overview: https://grafana.com/grafana/dashboards/10955
+Dashboard ID 10428 - Kubernetes cluster monitoring with Prometheus: https://grafana.com/grafana/dashboards/10428
+Dashboard ID 11814 - Prometheus Stats: https://grafana.com/grafana/dashboards/11814
+Dashboard ID 5278 - Prometheus Performance: https://grafana.com/grafana/dashboards/5278
+Dashboard ID 1860 - Node Exporter Full: https://grafana.com/grafana/dashboards/1860
+
+Once the dashboard is imported, you can customize it further to suit your needs. 
+You can edit the queries, add new panels, and adjust the dashboard settings as per your requirements.
