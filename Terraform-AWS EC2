@@ -1,0 +1,77 @@
+Terraform installation 
+
+# Install `yum-utils` package which provides several utilities and plugins for the `yum` package manager.
+sudo yum install -y yum-utils
+
+# Add the HashiCorp repository to the list of repositories managed by `yum-config-manager`.
+# This repository contains the Terraform package.
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+
+# Install Terraform package using `yum`.
+sudo yum -y install terraform
+
+# Verify the installation of Terraform by running the following command:
+terraform --version
+
+# Display help information for Terraform by running the following command:
+terraform -help
+
+++++.  ++++      ++++  ++++.  ++++      ++++ ++++.  ++++      ++++ ++++.  ++++      ++++ ++++.  ++++      ++++ ++++.  ++++      ++++ 
+
+configure the AWS CLI with your AWS access key ID and secret access key:
+
+steps to configure a user and generate access keys in the AWS Console:
+
+Sign in to the AWS Management Console and open the IAM console at https://console.aws.amazon.com/iam/.
+
+In the navigation pane, choose Users and then choose Add user.
+
+Type a user name for the new user and choose the access type that matches the permissions you want to grant.
+
+For AWS Management Console access, choose Console password and provide a password.
+
+Choose Next: Permissions.
+
+On the Set permissions page, choose Attach existing policies directly and then select the policies that you want to attach to the user. You can also create a custom policy if you need more granular permissions.
+
+Choose Next: Tags.
+
+(Optional) Add metadata to the user by attaching tags as key-value pairs.
+
+Choose Next: Review to see the details of the user you created.
+
+Choose Create user.
+
+To view the new user's access key, choose Download .csv and save the file somewhere secure.
+
+You can also generate access keys for an existing user by selecting the user, choosing the Security credentials tab, and then choosing Create access key.
+
+++++.  ++++      ++++  ++++.  ++++      ++++ ++++.  ++++      ++++ ++++.  ++++      ++++ ++++.  ++++      ++++ ++++.  ++++      ++++ 
+
+# Open a terminal or command prompt.
+
+# Type the following command to start the AWS CLI configuration process.
+aws configure
+
+# The command will prompt you to enter your AWS access key ID, secret access key, default region name, and default output format. 
+# Replace <your access key ID>, <your secret access key>, and <your preferred region> with your actual values.
+AWS Access Key ID [None]: <your access key ID>
+AWS Secret Access Key [None]: <your secret access key>
+Default region name [None]: <your preferred region>
+Default output format [None]: json
+
+# If you don't know your preferred region, you can leave it blank and the AWS CLI will use the default region specified in your AWS configuration file.
+
+# After you've entered your values, the command will save your configuration to the `~/.aws/credentials` and `~/.aws/config` files.
+
+# You can confirm that the configuration has been successfully saved by running the following command:
+
+cat ~/.aws/config
+
+# This command should display your AWS configuration details.
+
+# You can also check that the AWS CLI is working correctly by running the following command:
+
+aws ec2 describe-instances
+
+# This command should display a list of your EC2 instances, assuming that you have some instances in your AWS account.
