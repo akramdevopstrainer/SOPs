@@ -28,7 +28,8 @@ cd /etc/yum.repos.d/
 ls -l
 
 # Step 7: Import Jenkins repository key
-sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
 
 # Step 8: Install Jenkins
 sudo yum install jenkins -y
