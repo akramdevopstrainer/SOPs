@@ -1,0 +1,51 @@
+📝 **Step-by-Step Guide: Integrating GitHub with Jenkins on AWS EC2**
+
+To integrate GitHub with Jenkins running on an AWS EC2 instance, follow the steps below:
+
+1. **Generate SSH Key Pair**: This should be done on the Jenkins EC2.
+   - Run the following command to generate an SSH key pair:
+     ```bash
+     ssh-keygen
+     ```
+   - Press Enter for the default file locations and leave the passphrase empty.
+
+2. **Navigate to SSH Directory**:
+   - Change to the `.ssh` directory:
+     ```bash
+     cd ~/.ssh
+     ```
+
+3. **Display Public Key**:
+   - View the contents of the public key file (`id_rsa.pub`):
+     ```bash
+     cat id_rsa.pub
+     ```
+   - Copy the displayed public key to use it later.
+
+4. **Display Private Key**:
+   - View the contents of the private key file (`id_rsa`):
+     ```bash
+     cat id_rsa
+     ```
+   - Copy the entire private key content.
+
+5. **Configure SSH Key on GitHub**:
+   - Open GitHub in a web browser and navigate to your profile settings.
+   - Go to **SSH and GPG keys** and click on **New SSH key**.
+   - Provide a name for the key and paste the public key (`id_rsa.pub`) content into the key field.
+   - Save the SSH key on GitHub.
+
+6. **Configure SSH Credentials in Jenkins**:
+   - Open the Jenkins UI in a web browser.
+   - Click on **Manage Jenkins** and select **Credentials**.
+   - Click on **Add credentials** under the **Domain (global)** section.
+   - Fill in the necessary information:
+     - **Kind**: Select **SSH Username with private key**.
+     - **Username**: Enter a username.
+     - **Private Key**: Click on **Add** and paste the private key content (`id_rsa`) into the text area.
+     - Leave other fields as default or modify as needed.
+   - Click **OK** to save the credentials.
+
+Congratulations! You have successfully integrated your GitHub account with Jenkins running on AWS EC2. Jenkins can now access your GitHub repositories using the SSH key pair. You can configure Jenkins jobs to interact with your repositories and perform various CI/CD tasks.
+
+🎉
