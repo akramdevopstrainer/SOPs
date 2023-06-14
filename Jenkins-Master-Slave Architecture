@@ -1,0 +1,65 @@
+📝 **Step-by-Step Guide: Setting up Master-Slave Architecture in Jenkins**
+
+To set up a Master-Slave architecture in Jenkins, follow the steps below:
+
+**On the Jenkins Master:**
+
+1. Access the Jenkins UI:
+   - Open a web browser and enter the URL of your Jenkins master.
+   - Log in with appropriate credentials.
+
+2. Configure Node Settings:
+   - Click on **Manage Jenkins** in the left-hand sidebar.
+   - Select **Manage Nodes and Clouds**.
+   - Click on the **New Node** button to create a new node.
+
+3. Configure the Slave Node:
+   - Enter a **Name** for the slave node (e.g., `slave-node01`).
+   - Provide a **Description** for the slave node.
+   - Set the **Number of executors** to the desired value (e.g., `1`).
+   - Specify the **Remote root directory** on the slave node (e.g., `/opt`).
+   - Enter any relevant **Labels** for the slave node (e.g., `slave01`).
+   - Choose the appropriate **Usage** option based on your requirements.
+   - Select the **Launch method** as "Launch agent by connecting it to the controller."
+   - Customize any other settings as needed.
+
+4. Save the Slave Node Configuration:
+   - Click on **Save** to save the configuration changes.
+
+**On the Slave Node:**
+
+5. Connect to the Slave Node:
+   - Connect to the slave node using SSH or any other preferred method.
+
+6. Install Java Runtime Environment (JRE):
+   - Run the following command to install Java OpenJDK 11:
+     ```
+     sudo amazon-linux-extras install java-openjdk11 -y
+     ```
+
+7. Download the Jenkins Agent JAR File:
+   - Change to the desired directory (e.g., `/opt`):
+     ```
+     cd /opt/
+     ```
+   - Download the Jenkins agent JAR file:
+     ```
+     curl -sO [JENKINS_MASTER_URL]/jnlpJars/agent.jar
+     ```
+     Replace `[JENKINS_MASTER_URL]` with the actual URL of your Jenkins master.
+
+8. Launch the Jenkins Agent:
+   - Run the following command to launch the Jenkins agent and connect it to the master:
+     ```
+     java -jar agent.jar -jnlpUrl [AGENT_JNLP_URL] -secret [AGENT_SECRET] -workDir "/opt"
+     ```
+     Replace `[AGENT_JNLP_URL]` with the URL of the agent's JNLP file provided by Jenkins.
+     Replace `[AGENT_SECRET]` with the secret token for the agent obtained from Jenkins.
+
+9. Wait for the Agent to Connect:
+   - The Jenkins agent will establish a connection with the master.
+   - Once connected, the agent will appear as online in the Jenkins UI.
+
+Congratulations! You have successfully set up a Master-Slave architecture in Jenkins. The slave node is now connected to the Jenkins master, and you can utilize it for distributed builds and other tasks.
+
+🎉
