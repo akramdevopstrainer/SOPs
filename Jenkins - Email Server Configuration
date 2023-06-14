@@ -1,0 +1,48 @@
+# Email Server Configuration on Jenkins
+
+This document explains how to configure the Email server on Jenkins to enable email notifications. Follow the steps below to set up the configuration.
+
+## Prerequisites
+- Access to a Jenkins server
+- SMTP server details (smtp.gmail.com)
+- Gmail account credentials (devopsakramcicd@gmail.com)
+- Test email recipient address (rootakramw@gmail.com)
+
+## Configuration Steps
+
+1. Log in to your Jenkins server.
+
+2. Go to the Jenkins home page and click on **Manage Jenkins** in the left-hand sidebar.
+
+3. Click on **Configure System**.
+
+4. Scroll down to the **E-mail Notification** section.
+
+5. Set the following options:
+
+    - **SMTP server**: smtp.gmail.com
+    - **Default user e-mail suffix**: [Leave it blank or specify your domain]
+    - **Use SMTP Authentication**: [Check the box]
+    - **User Name**: your-email@gmail.com
+    - **Password**: [Enter the password for the Gmail account]
+    - **Use SSL**: [Check the box]
+    - **Use TLS**: [Leave it unchecked]
+    - **SMTP Port**: 465
+    - **Reply-To Address**: [Leave it blank or specify an email address]
+    - **Charset**: UTF-8
+
+6. Click on **Save** to apply the configuration changes.
+
+7. To test the configuration, click on **Test configuration by sending test e-mail**.
+
+8. Set the **Test e-mail recipient** to rootakramw@gmail.com (or your desired test email address).
+
+9. Click on **Test configuration**.
+
+10. Check your email inbox to verify if you received the test email. If the email was successfully sent, you should see a notification confirming the same.
+
+## Additional Steps
+
+11. If you are using a Gmail account, you may need to allow less secure apps or generate an App Password. Follow the [Google Support documentation](https://support.google.com/accounts/answer/185833?hl=en) for instructions.
+
+That's it! You have successfully configured the Email server on Jenkins for sending email notifications.
