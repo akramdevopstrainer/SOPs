@@ -1,0 +1,53 @@
+Standard Operating Procedure (SOP) for Starting, Updating, and Installing Ansible and Setting Up SSH Connectivity:
+
+1. Start by opening a terminal or SSH into your master node.
+
+2. Update the system packages by running the following command:
+   ```
+   sudo apt update
+   ```
+
+3. Install Ansible by executing the following command:
+   ```
+   sudo apt install ansible -y
+   ```
+
+4. To verify the successful installation of Ansible, check the version by running:
+   ```
+   ansible --version
+   ```
+
+   Ensure that the output displays the version information, indicating that Ansible is installed correctly.
+
+5. Next, navigate to the .ssh directory:
+   ```
+   cd ~/.ssh/
+   ```
+
+6. Create a file named `ansible-key` using the text editor of your choice (e.g., `vi`, `nano`, `vim`):
+   ```
+   vi ansible-key (copy complete contents of you .pem key and paster here)
+   ```
+
+   This will open the `ansible-key` file in the chosen text editor.
+
+7. In the `ansible-key` file, paste the contents of your private key. You can copy the contents of the private key from another source, such as a file or an SSH key manager.
+
+8. Save and exit the text editor. For example, in `vi`, press `Esc`, type `:wq`, and hit `Enter` to save and exit.
+
+9. To verify that the `ansible-key` file contains the correct contents, use the `cat` command:
+   ```
+   cat ansible-key
+   ```
+
+   This will display the contents of the `ansible-key` file in the terminal.
+
+10. The SSH connectivity between the master and child nodes is essential for Ansible to manage and configure the child nodes remotely. By setting up SSH connectivity, Ansible can securely authenticate and establish a connection with the child nodes using the private key provided.
+
+   Importance of SSH Connectivity:
+   - Secure Communication: SSH (Secure Shell) provides secure encrypted communication between the master and child nodes, ensuring the confidentiality and integrity of data transferred during Ansible operations.
+   - Authentication: SSH allows the master node to authenticate itself to the child nodes using the private key. This ensures that only authorized systems can access and manage the child nodes.
+   - Remote Management: SSH connectivity enables Ansible to remotely execute commands and tasks on the child nodes, facilitating centralized management and configuration of multiple systems.
+
+Following this SOP will guide you through starting, updating, and installing Ansible on your master node. Additionally, it outlines the process of creating a file to store your private key 
+for establishing SSH connectivity between the master and child nodes. SSH connectivity is crucial for Ansible to securely manage and configure the child nodes in your environment.
