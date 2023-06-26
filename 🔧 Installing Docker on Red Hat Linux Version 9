@@ -1,0 +1,76 @@
+🔧 **Installing Docker on Red Hat Linux Version 9**
+
+Here's a step-by-step guide to installing Docker on Red Hat Linux Version 9:
+
+1. Launch an AWS EC2 instance with RHEL-9.2.0_HVM-20230503-x86_64-41.
+2. Connect to the EC2 instance via SSH and switch to the root user by running the following command:
+   ```
+   sudo -i
+
+   ```
+
+3. Navigate to the `/etc/yum.repos.d/` directory using the following command:
+   ```
+   cd /etc/yum.repos.d/
+   ```
+
+4. Update the system packages using the `dnf` package manager by executing the following command:
+   ```
+   sudo dnf update -y
+   ```
+
+5. Create a new repository file called `docker.repo` using a text editor such as `vi`:
+   ```
+   vi docker.repo
+   ```
+
+   Inside the `docker.repo` file, insert the following content:
+   ```
+   [docker-ce-stable]
+   name=Docker CE Stable - $basearch
+   baseurl=https://download.docker.com/linux/centos/$releasever/$basearch/stable
+   enabled=1
+   gpgcheck=1
+   gpgkey=https://download.docker.com/linux/centos/gpg
+   ```
+
+   Save the file and exit the text editor.
+
+6. Install Docker using the `yum` package manager by running the following command:
+   ```
+   yum install docker-ce --nobest
+   ```
+
+7. Start the Docker service using the following command:
+   ```
+   systemctl start docker
+   ```
+
+8. Check the status of the Docker service to ensure it is running without any issues:
+   ```
+   systemctl status docker
+   ```
+
+   You should see output indicating that the Docker service is active and running.
+
+9. Test the Docker installation by running a simple Docker container:
+   ```
+   sudo docker run hello-world
+   ```
+
+   Docker will download the necessary image and run a container that prints a "Hello from Docker!" message.
+
+10.Enable the Docker service to start automatically on system boot by executing the following command:
+
+
+   systemctl enable docker
+   
+   This creates a symlink to the Docker service unit file in the appropriate systemd directory.
+
+11.Verify if the Docker service is enabled by running the following command:
+
+
+   systemctl is-enabled docker
+   
+   The output should indicate that the Docker service is "enabled," confirming that it will start automatically on system boot.
+
