@@ -26,12 +26,12 @@ Here's a step-by-step guide to installing Docker on Red Hat Linux Version 9:
 
    Inside the `docker.repo` file, insert the following content:
    ```
-   [docker-ce-stable]
-   name=Docker CE Stable - $basearch
-   baseurl=https://download.docker.com/linux/centos/$releasever/$basearch/stable
-   enabled=1
-   gpgcheck=1
-   gpgkey=https://download.docker.com/linux/centos/gpg
+docker-ce-stable]
+name=Docker CE Stable - $basearch
+baseurl=https://download.docker.com/linux/centos/$releasever/$basearch/stable
+enabled=1
+gpgcheck=1
+gpgkey=https://download.docker.com/linux/centos/gpg
    ```
 
    Save the file and exit the text editor.
