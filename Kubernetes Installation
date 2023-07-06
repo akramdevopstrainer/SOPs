@@ -1,1 +1,82 @@
 
+**Kubernetes Installation SOP**
+
+This SOP outlines the steps to install Kubernetes on a cluster. The following commands should be executed on the respective nodes: 
+master and worker.
+
+**Prerequisites:**
+- The nodes should be running a supported Linux distribution (e.g., Ubuntu).
+- Ensure that the nodes have internet connectivity.
+- Ports for the Control-plane (Master) Node(s)
+
+1. TCP 6443      → For Kubernetes API server
+2. TCP 2379–2380 → For etcd server client API
+3. TCP 10250     → For Kubelet API
+4. TCP 10259     → For kube-scheduler
+5. TCP 10257     → For kube-controller-manager
+6. TCP 22        → For remote access with ssh
+7. UDP 8472      → Cluster-Wide Network Comm. — Flannel VXLAN
+Ports for the Worker Node(s)
+
+1. TCP 10250       → For Kubelet API
+2. TCP 30000–32767 → NodePort Services†
+3. TCP 22          → For remote access with ssh
+4. UDP 8472        → Cluster-Wide Network Comm. — Flannel VXLAN
+
+1. Open a terminal and log in as root using the command: `sudo su`.
+
+2. Update the package manager and install Docker by running the following commands:
+```
+apt-get update
+apt-get install docker.io -y
+service docker restart
+```
+
+3. Add the Kubernetes repository key by executing the command:
+```
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+```
+
+4. Create a Kubernetes repository file by running:
+```
+echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" >/etc/apt/sources.list.d/kubernetes.list
+```
+
+5. Update the package manager again to include the Kubernetes repository:
+```
+apt-get update
+```
+
+6. Install the required Kubernetes components (kubeadm, kubectl, kubelet) with a specific version (e.g., 1.20.0-00) by running the following command:
+```
+apt install kubeadm=1.20.0-00 kubectl=1.20.0-00 kubelet=1.20.0-00 -y
+```
+
+7. On the master node, initialize the cluster by executing:
+```
+kubeadm init
+```
+
+8. After running the `kubeadm init` command, a token will be generated. Copy the token command that starts with `kubeadm join` as it will be used to join worker nodes to the cluster.
+
+9. On the master node, set up the kubeconfig file by executing the following commands:
+```
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+
+10. Apply the Calico network plugin by running the command:
+```
+kubectl apply -f https://docs.projectcalico.org/v3.9/manifests/calico.yaml
+```
+
+11. Deploy the NGINX Ingress Controller by executing the command:
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.49.0/deploy/static/provider/baremetal/deploy.yaml
+```
+
+12. To verify the installation and check the nodes in the cluster, use the command:
+```
+kubectl get nodes
+```
