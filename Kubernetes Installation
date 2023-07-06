@@ -5,6 +5,7 @@ This SOP outlines the steps to install Kubernetes on a cluster. The following co
 master and worker.
 
 **Prerequisites:**
+- Use EC2 - t2 medium for master and t2 micro for workwe
 - The nodes should be running a supported Linux distribution (e.g., Ubuntu).
 - Ensure that the nodes have internet connectivity.
 - Ports for the Control-plane (Master) Node(s)
