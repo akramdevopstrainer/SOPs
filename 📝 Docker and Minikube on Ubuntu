@@ -77,3 +77,9 @@ manage containerized applications on your Ubuntu EC2 instance.
     ```
     minikube start
     ```
+15. To check the version of Minikube installed on your system, you can use the following command:
+    ```
+    minikube version
+    ```
+
+
