@@ -1,0 +1,79 @@
+Standard Operating Procedure (SOP) for Installing Docker and Minikube on Ubuntu 20.04.6 LTS EC2.
+
+This Standard Operating Procedure (SOP) provides step-by-step instructions for installing Docker and Minikube on an Ubuntu 20.04.6 LTS EC2 
+instance. Docker is a popular containerization platform, and Minikube is a tool used to run Kubernetes clusters locally for development 
+& testing purposes.
+
+By following these steps, you will be able to set up a local Kubernetes environment using Minikube, which will allow you to deploy and 
+manage containerized applications on your Ubuntu EC2 instance.
+
+
+
+1. Open the terminal on your Ubuntu 20.04.6 LTS EC2 instance.
+
+2. Switch to the root user by executing the following command:
+   ```
+   sudo su
+   ```
+
+3. Update the package lists for upgrades and new package installations:
+   ```
+   sudo apt-get update
+   ```
+
+4. Install Docker using the package manager:
+   ```
+   sudo apt-get install docker.io
+   ```
+
+5. Update the package lists again and install the necessary dependencies for Kubernetes:
+   ```
+   sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2 curl
+   ```
+
+6. Add the Kubernetes apt repository key to the system:
+   ```
+   curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+   ```
+
+7. Add the Kubernetes apt repository to the system's package sources:
+   ```
+   echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+   ```
+
+8. Update the package lists once more:
+   ```
+   sudo apt-get update
+   ```
+
+9. Install the Kubernetes command-line tool (kubectl):
+   ```
+   sudo apt-get install -y kubectl
+   ```
+
+10. Download and install Minikube:
+    ```
+    curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+    chmod +x minikube
+    sudo mv minikube /usr/local/bin/
+    ```
+
+11. Exit the root user session:
+    ```
+    exit
+    ```
+
+12. Change to the /usr/local/bin directory:
+    ```
+    cd /usr/local/bin/
+    ```
+
+13. Add your user to the docker group and activate the changes:
+    ```
+    sudo usermod -aG docker $USER && newgrp docker
+    ```
+
+14. Start Minikube:
+    ```
+    minikube start
+    ```
