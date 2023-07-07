@@ -26,6 +26,10 @@ Ports for the Worker Node(s)
 
 1. Open a terminal and log in as root using the command: `sudo su`.
 
+you can chnage the hostname using below command
+
+-> sudo hostnamectl set-hostname master 
+
 2. Update the package manager and install Docker by running the following commands:
 ```
 apt-get update
