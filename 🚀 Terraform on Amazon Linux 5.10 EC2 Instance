@@ -1,0 +1,17 @@
+🚀 Installing Terraform on Amazon Linux 5.10 EC2 Instance
+
+Follow the steps below to install Terraform on your Amazon Linux 5.10 EC2 instance:
+
+Step 1: Update yum-utils
+   $ sudo yum install -y yum-utils
+
+Step 2: Add HashiCorp repository
+   $ sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+
+Step 3: Install Terraform
+   $ sudo yum -y install terraform
+
+Step 4: Verify the installation
+   $ terraform --version
+
+🎉 Congratulations! Terraform has been successfully installed on your Amazon Linux 5.10 EC2 instance.
