@@ -1,0 +1,56 @@
+Here's the SOP (Standard Operating Procedure) to install Node Exporter on an Amazon Linux EC2 instance running Amazon Linux AMI:
+
+📚 **Node Exporter Installation SOP** 🚀
+
+Follow the steps below to install Node Exporter on an Amazon Linux EC2 instance running Amazon Linux AMI:
+
+1. Connect to your EC2 instance via SSH.
+
+2. Run the following commands in the terminal:
+
+   ```
+   cd /opt
+   yum install wget -y
+   wget https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz
+   tar xvfz node_exporter-*.*-amd64.tar.gz
+   sudo mv node_exporter-*.*-amd64/node_exporter /usr/local/bin/
+   sudo useradd -rs /bin/false node_exporter
+   ```
+
+3. Open the `node_exporter.service` file for editing:
+
+   ```
+   sudo vi /etc/systemd/system/node_exporter.service
+   ```
+
+4. Add the following content to the file:
+
+   ```
+   [Unit]
+   Description=Node Exporter
+   After=network.target
+
+   [Service]
+   ExecStart=/usr/local/bin/node_exporter
+
+   [Install]
+   WantedBy=default.target
+   ```
+
+   Save the changes and exit the vi editor.
+
+5. Execute the following commands:
+
+   ```
+   sudo systemctl daemon-reload
+   sudo systemctl enable node_exporter
+   sudo systemctl start node_exporter
+   sudo systemctl status node_exporter
+   ```
+
+Now you have successfully installed and configured Node Exporter on your Amazon Linux EC2 instance. 
+You can now use Prometheus or other monitoring systems to scrape metrics from Node Exporter.
+
+🎉 Congratulations on completing the Node Exporter installation! 🎉
+
+Please note that this SOP assumes you have administrative privileges on your EC2 instance and have a basic understanding of the Linux command line.
