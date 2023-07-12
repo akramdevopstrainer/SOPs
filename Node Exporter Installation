@@ -1,0 +1,88 @@
+```
+# Node Exporter Installation Steps
+
+Follow these steps to install and configure Node Exporter for Prometheus monitoring on your system.
+
+1. Change to the temporary directory:
+   ```
+   cd /tmp
+   ```
+
+2. Install the wget package using yum:
+   ```
+   yum install wget -y
+   ```
+
+3. Download the Node Exporter release tarball:
+   ```
+   wget https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz
+   ```
+
+4. List the contents of the directory to verify the downloaded file:
+   ```
+   ll
+   ```
+
+5. Extract the tarball contents:
+   ```
+   tar xvfz node_exporter-*.*-amd64.tar.gz
+   ```
+
+6. List the contents of the directory again to check the extracted files:
+   ```
+   ll
+   ```
+
+7. Move the Node Exporter binary to the /usr/local/bin/ directory:
+   ```
+   sudo mv node_exporter-*.*-amd64/node_exporter /usr/local/bin/
+   ```
+
+8. Create a system user for Node Exporter:
+   ```
+   sudo useradd -rs /bin/false node_exporter
+   ```
+
+9. Open the Node Exporter systemd service file in the vi editor:
+   ```
+   sudo vi /etc/systemd/system/node_exporter.service
+   ```
+
+   Add the following content to the file:
+   ```
+   [Unit]
+   Description=Node Exporter
+   After=network.target
+
+   [Service]
+   ExecStart=/usr/local/bin/node_exporter
+
+   [Install]
+   WantedBy=default.target
+   ```
+
+   Save and exit the editor.
+
+10. Reload the systemd daemon to load the new service configuration:
+    ```
+    sudo systemctl daemon-reload
+    ```
+
+11. Enable Node Exporter to start on system boot:
+    ```
+    sudo systemctl enable node_exporter
+    ```
+
+12. Start the Node Exporter service:
+    ```
+    sudo systemctl start node_exporter
+    ```
+
+13. Check the status of the Node Exporter service:
+    ```
+    sudo systemctl status node_exporter
+    ```
+
+Once you have completed these steps, Node Exporter should be installed and running on your system, 
+ready to be scraped by Prometheus for monitoring purposes.
+```
