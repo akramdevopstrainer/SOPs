@@ -1,0 +1,106 @@
+Sure! Here's a simplified version of the steps to install Prometheus and configure it to scrape metrics from the local Prometheus instance. This is written in a Git README format with emojis:
+
+```
+# Installing and Configuring Prometheus
+
+Follow these steps to install and configure Prometheus on your system.
+
+## Prerequisites
+
+- Linux-based operating system
+- Root access or sudo privileges
+
+## Steps
+
+1. Change to the `/opt` directory:
+   ```
+   cd /opt
+   ```
+
+2. Download Prometheus:
+   ```
+   wget https://github.com/prometheus/prometheus/releases/download/v2.37.8/prometheus-2.37.8.linux-amd64.tar.gz
+   ```
+
+3. Extract the downloaded file:
+   ```
+   tar xvfz prometheus-2.37.8.linux-amd64.tar.gz
+   ```
+
+4. Navigate to the Prometheus directory:
+   ```
+   cd prometheus-2.37.8.linux-amd64
+   ```
+
+5. Edit the Prometheus configuration file:
+   ```
+   vi prometheus.yml
+   ```
+
+6. Start Prometheus and specify the configuration file:
+   ```
+   ./prometheus --config.file=prometheus.yml
+   ```
+
+7. Create a Prometheus service unit file:
+   ```
+   sudo vi /etc/systemd/system/prometheus.service
+   ```
+
+   Add the following content to the file:
+   ```
+   [Unit]
+   Description=Prometheus
+   Documentation=https://prometheus.io/docs/introduction/overview/
+   Wants=network-online.target
+   After=network-online.target
+
+   [Service]
+   User=root
+   ExecStart=/opt/prometheus-2.37.8.linux-amd64/prometheus --config.file=/opt/prometheus-2.37.8.linux-amd64/prometheus.yml
+
+   [Install]
+   WantedBy=default.target
+   ```
+
+8. Enable and start the Prometheus service:
+   ```
+   sudo systemctl enable prometheus
+   sudo systemctl start prometheus
+   ```
+
+9. Check the status of the Prometheus service:
+   ```
+   sudo systemctl status prometheus
+   ```
+
+10. Access the Prometheus web interface:
+    Open a web browser and visit `http://localhost:9090`.
+
+11. Configure Prometheus to scrape metrics from the local instance:
+    Edit the Prometheus configuration file:
+    ```
+    vi prometheus.yml
+    ```
+
+    Add the following targets under `static_configs`:
+    ```yaml
+    static_configs:
+      - targets: ["localhost:9090"]
+    ```
+
+12. Restart the Prometheus service for the changes to take effect:
+    ```
+    sudo systemctl restart prometheus
+    ```
+
+13. Check the status of the Prometheus service again:
+    ```
+    sudo systemctl status prometheus
+    ```
+
+Now, Prometheus is installed and configured to scrape metrics from the local Prometheus instance. 
+You can access the Prometheus web interface at `http://localhost:9090` to explore and analyze the collected metrics.
+
+```
+.
