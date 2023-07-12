@@ -1,0 +1,110 @@
+🚀 **Deployment SOP - SonarQube on AWS EC2**
+
+Follow these steps to deploy SonarQube on an Amazon EC2 instance running Amazon Linux AMI.
+
+1. Launch an EC2 instance with the following specifications:
+   - Instance Type: t2.medium
+   - Amazon Linux AMI
+
+2. SSH into the EC2 instance as the root user.
+
+3. Install Java OpenJDK 11:
+   ```
+   sudo amazon-linux-extras install java-openjdk11
+   ```
+
+4. Verify the Java version:
+   ```
+   java -version
+   ```
+
+5. Change to the /opt/ directory:
+   ```
+   cd /opt/
+   ```
+
+6. Download the SonarQube distribution:
+   ```
+   wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-8.9.10.61524.zip
+   ```
+
+7. Unzip the downloaded file:
+   ```
+   unzip sonarqube-8.9.10.61524.zip
+   ```
+
+8. Rename the extracted folder to 'sonar':
+   ```
+   mv sonarqube-8.9.10.61524 sonar
+   ```
+
+9. Create a new user for SonarQube:
+   ```
+   useradd sonar
+   ```
+
+10. Verify the user 'sonar':
+    ```
+    id sonar
+    ```
+
+11. Change ownership of the SonarQube installation directory:
+    ```
+    chown -R sonar:sonar sonar
+    ```
+
+12. Open the SonarQube service file for editing:
+    ```
+    vi /etc/systemd/system/sonar.service
+    ```
+
+    Paste the following content into the file:
+    ```plaintext
+    [Unit]
+    Description=sonar 8.9.10 service
+    After=network.target
+
+    [Service]
+    Type=forking
+    LimitNOFILE=65536
+    User=sonar
+    Group=sonar
+    ExecStart=/opt/sonar/bin/linux-x86-64/sonar.sh start
+    ExecStop=/opt/sonar/bin/linux-x86-64/sonar.sh stop
+    Restart=always
+
+    [Install]
+    WantedBy=multi-user.target
+    ```
+
+13. Change to the /etc/systemd/system/ directory:
+    ```
+    cd /etc/systemd/system/
+    ```
+
+14. Set permissions for the SonarQube service file:
+    ```
+    chmod 777 sonar.service
+    ```
+
+15. Enable the SonarQube service to start on boot:
+    ```
+    systemctl enable sonar.service
+    ```
+
+16. Start the SonarQube service:
+    ```
+    systemctl start sonar.service
+    ```
+
+17. Check the status of the SonarQube service:
+    ```
+    systemctl status sonar.service
+    ```
+
+18. Fetch the public IP address of the EC2 instance:
+    ```
+    curl http://169.254.169.254/latest/meta-data/public-ipv4
+    ```
+
+That's it! You have successfully deployed SonarQube on your AWS EC2 instance.
