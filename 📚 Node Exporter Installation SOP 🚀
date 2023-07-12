@@ -42,6 +42,7 @@ Follow the steps below to install Node Exporter on an Amazon Linux EC2 instance 
 5. Execute the following commands:
 
    ```
+   sudo mv /usr/local/bin/node_exporter-0.18.1.linux-amd64/node_exporter /usr/local/bin/
    sudo systemctl daemon-reload
    sudo systemctl enable node_exporter
    sudo systemctl start node_exporter
