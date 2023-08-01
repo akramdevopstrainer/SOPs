@@ -1,62 +1,57 @@
-#Installing Jenkins on Amazon Linux
+# Installing Jenkins on Amazon Linux
 
-#ThisSOP provides instructions for installing Jenkins on an Amazon Linux instance.
+## This SOP provides instructions for installing Jenkins on an Amazon Linux instance.
 
-#Prerequisites
+### Prerequisites
 
-Amazon Linux instance launched
-SSH access to the instance with administrative privileges
+- Amazon Linux instance launched
+- SSH access to the instance with administrative privileges
 
-Installation Steps
+### Installation Steps
 
-# Step 1: Install Java OpenJDK 11
+Step 1: Install Java OpenJDK 11
 sudo amazon-linux-extras install java-openjdk11 -y
 
-# Step 2: Confirm Java installation
+Step 2: Confirm Java installation
 java -version
 
-# Step 3: Install EPEL repository
+Step 3: Install EPEL repository
 sudo amazon-linux-extras install epel -y
 
-# Step 4: Add Jenkins repository
+Step 4: Add Jenkins repository
 curl --silent --location http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo | sudo tee /etc/yum.repos.d/jenkins.repo
 
-# Step 5: Change to Jenkins repository directory
+Step 5: Change to Jenkins repository directory
 cd /etc/yum.repos.d/
 
-# Step 6: List repository contents
+Step 6: List repository contents
 ls -l
 
-# Step 7: Import Jenkins repository key
+Step 7: Import Jenkins repository key
 sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
 sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
 
-# Step 8: Install Jenkins
+Step 8: Install Jenkins
 sudo yum install jenkins -y
 
-# Step 9: Check Jenkins status
+Step 9: Check Jenkins status
 systemctl status jenkins
 
-# Step 10: Start Jenkins service
-systemctl start jenkins
+Step 10: Start Jenkins service
+sudo systemctl start jenkins
 
-# Step 11: Check Jenkins status
+Step 11: Check Jenkins status
 systemctl status jenkins
 
-# Step 12: Enable Jenkins service to start on boot
-systemctl enable jenkins
+Step 12: Enable Jenkins service to start on boot
+sudo systemctl enable jenkins
 
-# Step 13: Get Jenkins initial admin password
+Step 13: Get Jenkins initial admin password
 cat /var/lib/jenkins/secrets/initialAdminPassword
 
-
-
-Troubleshooting
+### Troubleshooting
 
 If you encounter the error "warning: /var/cache/yum/x86_64/2/jenkins/packages/jenkins-2.387.2-1.1.noarch.rpm: Header V4 RSA/SHA512 Signature, key ID ef5975ca: NOKEY Public key for jenkins-2.387.2-1.1.noarch.rpm is not installed", you can fix it by running the following command:
 
-sh
-Copy code
+```
 sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io-2023.key
-This will import the Jenkins repository key and resolve the error.
-
