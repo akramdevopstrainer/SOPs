@@ -1,0 +1,35 @@
+## Install Jenkins on Red Hat (RHEL/Fedora) ##
+# Step 1: Download and add Jenkins repository
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+
+# Step 2: Upgrade packages
+sudo dnf upgrade
+
+# Step 3: Install Jenkins
+sudo dnf install jenkins
+
+# Step 4: Enable and start Jenkins service
+sudo systemctl enable jenkins
+sudo systemctl start jenkins
+
+# Step 5: Check Jenkins service status
+sudo systemctl status jenkins
+
+## Install Jenkins on Debian-based (Ubuntu/Debian) ##
+# Step 1: Download and add Jenkins repository key
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+# Step 2: Update package lists
+sudo apt-get update
+
+# Step 3: Install Jenkins
+sudo apt-get install jenkins
+
+# Step 4: Enable and start Jenkins service
+sudo systemctl enable jenkins
+sudo systemctl start jenkins
+
+# Step 5: Check Jenkins service status
+sudo systemctl status jenkins
