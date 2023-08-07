@@ -1,46 +1,76 @@
-# Steps to Install Maven on AWS EC2 - Amazon Linux
+# Standard Operating Procedure (SOP) - Setting up Java and Maven on an Amazon Linux Instance
 
-## Launch an EC2 with below AMI
-id: ami-09f7fbc41963e146f
-name: amzn2-ami-kernel-5.10-hvm-2.0.20230404.0-x86_64-gp2
+## Step 1: Install Java Development Kit (JDK)
+sudo yum install java-1.8.0-openjdk-devel -y
 
-## Install OpenJDK (Java Development Kit) version 1.8.0
-sudo yum install java-1.8.0-openjdk-devel
-
-## Check Java version
+## Step 2: Check Java version
 java -version
 
-## Switch to /opt (optional)
+## Step 3: Navigate to the /opt/ directory
 cd /opt/
 
-## Use "wget" utility to download Apache Maven from official website
+## Step 4: Print the current working directory (Optional)
+pwd
+
+## Step 5: Download Apache Maven
 wget https://dlcdn.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.zip
 
-## Unzip downloaded zip file
+## Step 6: List contents of the directory (Optional)
+ls -ltr
+
+## Step 7: Extract Maven ZIP archive
 unzip apache-maven-3.8.8-bin.zip
 
-## Rename unzipped file (optional)
+## Step 8: List contents of the directory after extraction
+ls -ltr
+
+## Step 9: Rename the extracted directory to "maven"
 mv apache-maven-3.8.8 maven
 
-## Switch to maven/
+## Step 10: List contents of the directory after renaming
+ls -ltr
+
+## Step 11: Change directory to the "maven" directory
 cd maven/
 
-## Switch to profile.d
+## Step 12: List contents of the "maven" directory (Optional)
+ls -ltr
+
+## Step 13: Navigate to the /etc/profile.d/ directory
 cd /etc/profile.d/
 
-## Create a new file for Maven script
+## Step 14: Create a new shell script named "maven.sh" using the vim editor
 vim maven.sh
 
-# In Vim editor, press 'i' to enter insert mode, and copy paste below contents:
- export M2_HOME=/opt/maven
- export PATH=${M2_HOME}/bin:${PATH}
-# Press 'esc' to exit insert mode, then type ':wq' to save and exit Vim
+## Step 15: List contents of the directory after creating the script (Optional)
+ls -ltr
 
-## Modify permissions of "maven.sh" file to allow all users to have full read, write, and execute permissions
+## Step 16: Change permissions of the "maven.sh" script to make it executable (Not recommended in a production environment)
 chmod 777 maven.sh
 
-## Execute the commands and set environment variables defined in "maven.sh" file in current shell session
+## Step 17: List contents of the directory after changing permissions (Optional)
+ls -ltr
+
+## Step 18: Source the "maven.sh" script to set up Maven environment variables
 source maven.sh
 
-## Check and confirm Maven installation
+## Step 19: Check the Maven version
 mvn --version
+
+## Step 20: Generate a new Maven project using the "maven-archetype-quickstart" archetype
+mvn archetype:generate -DgroupId=com.example -DartifactId=my-java-project -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+
+## Step 21: Change directory to the newly created project
+cd my-java-project/
+
+## Step 22: List contents of the project directory (Optional)
+ls -ltr
+
+## Step 23: View the content of the "App.java" file
+cat src/main/java/com/example/App.java
+
+## Step 24: Clean and package the Maven project
+mvn clean package
+
+## Step 25: Run the Java application
+java -cp target/my-java-project-1.0-SNAPSHOT.jar com.example.App
