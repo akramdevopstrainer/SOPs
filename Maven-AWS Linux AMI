@@ -42,6 +42,12 @@ cd /etc/profile.d/
 ## Step 14: Create a new shell script named "maven.sh" using the vim editor
 vim maven.sh
 
+add below details
+
+export M2_HOME=/opt/maven
+export PATH=${M2_HOME}/bin:${PATH}
+
+
 ## Step 15: List contents of the directory after creating the script (Optional)
 ls -ltr
 
