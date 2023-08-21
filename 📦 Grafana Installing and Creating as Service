@@ -7,67 +7,84 @@ Follow these steps to install Grafana on your system and create a service for it
 - Linux-based operating system
 - Root access or sudo privileges
 
-## Steps
+**Procedure: Installing and Setting up Grafana**
 
-1. Download Grafana:
-   ```
-   wget https://dl.grafana.com/oss/release/grafana-10.0.2.linux-amd64.tar.gz
-   ```
+**Step 1:** Download the Grafana distribution archive:
+```bash
+wget https://dl.grafana.com/oss/release/grafana-10.0.2.linux-amd64.tar.gz
+```
 
-2. Extract the downloaded file:
-   ```
-   tar -zxvf grafana-10.0.2.linux-amd64.tar.gz
-   ```
+**Step 2:** List the contents of the current directory:
+```bash
+ls -ltr
+```
 
-3. Change to the Grafana directory:
-   ```
-   cd grafana-10.0.2/
-   ```
+**Step 3:** Extract the Grafana distribution archive:
+```bash
+tar -zxvf grafana-10.0.2.linux-amd64.tar.gz
+```
 
-4. Start Grafana:
-   ```
-   ./bin/grafana-server
-   ```
+**Step 4:** List the contents of the extracted directory:
+```bash
+ls -ltr grafana-10.0.2/
+```
 
-5. Create a Grafana service unit file:
-   ```
-   sudo vi /etc/systemd/system/grafana.service
-   ```
+**Step 5:** Navigate to the Grafana installation directory:
+```bash
+cd grafana-10.0.2/
+```
 
-   Add the following content to the file:
-   ```ini
-   [Unit]
-   Description=Grafana Server
-   Documentation=https://grafana.com/docs/grafana/latest/
-   After=network.target
+**Step 6:** List the contents of the `bin` directory:
+```bash
+ls -ltr bin/
+```
 
-   [Service]
-   ExecStart=/root/grafana-10.0.2/bin/grafana-server --homepath /root/grafana-10.0.2
+**Step 7:** Create and edit the Grafana systemd service file:
+```bash
+sudo vi /etc/systemd/system/grafana.service
+```
+In Insert mode, paste the following configuration:
+```plaintext
+[Unit]
+Description=Grafana Server
+Documentation=https://grafana.com/docs/grafana/latest/
+After=network.target
 
-   [Install]
-   WantedBy=multi-user.target
-   ```
+[Service]
+ExecStart=/root/grafana-10.0.2/bin/grafana-server --homepath /root/grafana-10.0.2
 
-6. Save the service unit file and exit the text editor.
+[Install]
+WantedBy=multi-user.target
+```
+Save and exit the text editor.
 
-7. Enable and start the Grafana service:
-   ```
-   sudo systemctl enable grafana
-   sudo systemctl start grafana
-   ```
+**Step 8:** List the contents of the `/etc/systemd/system` directory:
+```bash
+ls -ltr /etc/systemd/system
+```
 
-8. Check the status of the Grafana service:
-   ```
-   sudo systemctl status grafana
-   ```
+**Step 9:** Enable the Grafana service to start on boot:
+```bash
+sudo systemctl enable grafana
+```
 
-Now, Grafana is installed and running as a service on your system. It will start automatically on system boot, 
-and you can access the Grafana web interface to build stunning visualizations and dashboards for your data.
+**Step 10:** Start the Grafana service:
+```bash
+sudo systemctl start grafana
+```
 
-🌐 Access the Grafana web interface at `http://localhost:3000`.
+**Step 11:** Check the status of the Grafana service:
+```bash
+sudo systemctl status grafana
+```
 
-🔒 After accessing Grafana for the first time, set up a new admin user and password.
+**Step 12:** Access Grafana Web Interface:
+Open a web browser and access Grafana by navigating to `http://<server_ip>:3000` where `<server_ip>` is the IP address or 
+hostname of your server.
 
-You're all set! Enjoy using Grafana to create stunning visualizations and dashboards for your data! 🚀
+**Note:** You should configure Grafana further through its web interface, including setting up data sources and dashboards.
 
-Feel free to customize the installation and service configuration as per your requirements.
+**Procedure Completed**
+
+This procedure guides you through the process of installing and setting up Grafana on your system. 
+Remember to replace `<server_ip>` with the actual IP address or hostname of your server when accessing the web interface.
