@@ -52,3 +52,11 @@ Standard Operating Procedure (SOP) for Starting, Updating, and Installing Ansibl
 
 Following this SOP will guide you through starting, updating, and installing Ansible on your master node. Additionally, it outlines the process of creating a file to store your private key 
 for establishing SSH connectivity between the master and child nodes. SSH connectivity is crucial for Ansible to securely manage and configure the child nodes in your environment.
+
+
+
+
+
+sudo yum install python3 -y
+sudo amazon-linux-extras install ansible2 -y
+ansible --version
