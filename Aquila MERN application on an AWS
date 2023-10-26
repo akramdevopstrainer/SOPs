@@ -1,0 +1,94 @@
+# Aquila MERN Application Deployment Guide
+
+This guide will walk you through deploying the Aquila MERN application on an AWS EC2 instance. Make sure you have access to the AWS Management Console and the necessary credentials.
+
+## Step 1: SSH into your Application Server
+
+``` 
+ssh -i /path/to/your/keypair.pem ec2-user@your-instance-ip
+```
+
+Replace `/path/to/your/keypair.pem` with the path to your SSH key pair and `your-instance-ip` with your EC2 instance's IP.
+
+## Step 2: Update the System
+
+Update the system packages to ensure you have the latest updates:
+
+``` 
+sudo yum update -y   # For Amazon Linux 2
+```
+
+## Step 3: Install Node.js
+
+Install Node.js using Node Version Manager (NVM):
+
+``` 
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh |  
+source ~/. rc  # Activate nvm
+nvm install node
+```
+
+## Step 4: Install MongoDB
+
+Install MongoDB on your EC2 instance. For example, for Amazon Linux 2:
+
+``` 
+sudo amazon-linux-extras enable mongodb4.0
+sudo yum install -y mongodb-server
+```
+
+## Step 5: Start and Enable MongoDB
+
+Start and enable the MongoDB service:
+
+``` 
+sudo systemctl start mongod
+sudo systemctl enable mongod
+```
+
+## Step 6: Clone the Aquila MERN Application
+
+Clone the Aquila MERN application repository from GitHub:
+
+``` 
+git clone https://github.com/AquilaCMS/AquilaCMS.git
+```
+
+## Step 7: Install Application Dependencies
+
+Navigate to the application directory and install the required dependencies using npm (Node Package Manager):
+
+``` 
+cd AquilaCMS
+npm install
+```
+
+## Step 8: Configure the Application
+
+Create a configuration file (e.g., `.env`) and set the necessary environment variables. These may include database connection settings and application-specific configurations:
+
+``` 
+cp .env.example .env
+vi .env  # Edit the file with your configuration
+```
+
+## Step 9: Build and Start the Application
+
+Build and start the application. This command might vary depending on your application's setup:
+
+``` 
+npm run build  # Build the application
+npm start      # Start the application
+```
+
+## Step 10: Open Required Ports
+
+Ensure the security group associated with your Application server allows incoming traffic on the necessary ports (e.g., HTTP port 80 or HTTPS port 443 if your application uses HTTPS).
+
+## Step 11: Testing the Application
+
+Once your application is running, open a web browser and access it using the private IP address of your Application server. You should be able to access your Aquila application.
+
+Please replace `/path/to/your/keypair.pem` with the actual path to your SSH key pair and `your-instance-ip` with the actual IP address of your AWS EC2 instance. 
+Additionally, adjust any other configuration settings as required by your specific application.
+```
