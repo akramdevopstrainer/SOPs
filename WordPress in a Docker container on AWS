@@ -1,0 +1,62 @@
+WordPress in a Docker container on AWS
+
+Step 1: Create a Virtual Private Cloud (VPC)  
+
+aws ec2 create-vpc --cidr-block 10.0.0.0/16
+  
+
+Step 2: Create Subnets  
+
+aws ec2 create-subnet --vpc-id <your-vpc-id> --cidr-block 10.0.1.0/24 --availability-zone us-east-1a
+aws ec2 create-subnet --vpc-id <your-vpc-id> --cidr-block 10.0.2.0/24 --availability-zone us-east-1b
+  
+Step 3: Create a Security Group  
+  
+aws ec2 create-security-group --group-name WordPressSG --description "WordPress Security Group" --vpc-id <your-vpc-id>
+  
+
+Step 4: Launch an RDS Instance  
+
+aws rds create-db-instance --db-instance-identifier my-wordpress-db --allocated-storage 20 --db-instance-class db.t2.micro --engine mysql --master-username admin --master-user-password adminpassword --vpc-security-group-ids <security-group-id> --availability-zone us-east-1a --db-subnet-group-name <db-subnet-group-name>
+  
+
+Step 5: Launch WordPress Docker Containers  
+
+Assuming you've already launched EC2 instances:
+
+  
+# SSH into the EC2 instances and install Docker
+ssh -i <your-key-pair> ec2-user@<instance-public-ip>
+sudo yum update -y
+sudo amazon-linux-extras install docker
+sudo service docker start
+sudo usermod -a -G docker ec2-user
+
+# Log out and back in to apply group changes
+
+# Pull and run the WordPress Docker image
+docker run --name my-wordpress-container -e WORDPRESS_DB_HOST=<RDS-Endpoint> -e WORDPRESS_DB_USER=admin -e WORDPRESS_DB_PASSWORD=adminpassword -d -p 80:80 wordpress
+  
+
+Step 6: Create an Internal Application Load Balancer (ALB)  
+
+  
+aws elbv2 create-load-balancer --name my-wordpress-alb --subnets <subnet-id-1> <subnet-id-2> --scheme internal
+aws elbv2 create-target-group --name my-wordpress-tg --protocol HTTP --port 80 --vpc-id <your-vpc-id>
+aws elbv2 create-listener --load-balancer-arn <your-alb-arn> --protocol HTTP --port 80 --default-actions Type=forward,TargetGroupArn=<your-target-group-arn>
+  
+
+Step 7: Update Route Tables  
+
+You can use the AWS Management Console to update the route tables for your private subnets to route traffic to the ALB for internet-bound traffic.
+
+Step 8: DNS Configuration  
+
+Configure DNS resolution according to your DNS service provider. This step doesn't involve AWS CLI commands.
+
+Step 9: Connect from Your Local Laptop  
+
+This step involves setting up VPN or Direct Connect to connect from your local laptop, which is outside the scope of AWS CLI commands.
+
+
+
