@@ -1,7 +1,7 @@
 # Standard Operating Procedure (SOP) - Setting up Java and Maven on an Amazon Linux Instance
 
 ## Step 1: Install Java Development Kit (JDK)
-sudo yum install java-1.8.0-openjdk-devel -y
+https://docs.aws.amazon.com/corretto/latest/corretto-17-ug/amazon-linux-install.html
 
 ## Step 2: Check Java version
 java -version
@@ -64,7 +64,8 @@ source maven.sh
 mvn --version
 
 ## Step 20: Generate a new Maven project using the "maven-archetype-quickstart" archetype
-mvn archetype:generate -DgroupId=com.example -DartifactId=my-java-project -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+mvn archetype:generate -DgroupId=com.example -DartifactId=demo-java-project -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false -DarchetypeVersion=1.4 -Dproperties=maven.compiler.source=17,maven.compiler.target=17
+
 
 ## Step 21: Change directory to the newly created project
 cd my-java-project/
