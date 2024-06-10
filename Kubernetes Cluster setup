@@ -1,0 +1,95 @@
+Standard Operating Procedure (SOP) for Setting Up a Kubernetes Cluster
+
+Objective: This SOP outlines the steps to set up a Kubernetes cluster on Ubuntu using kubeadm, Docker, and Calico as the network plugin.
+
+### Prerequisites:
+1. Ubuntu Server installed on each node.
+2. SSH access to all nodes.
+3. Root or sudo privileges on each node.
+
+### Steps:
+
+1. Update Package Repositories:
+   
+   sudo apt update
+   
+
+2. Install Docker:
+   
+   sudo apt install docker.io
+   
+
+3. Start and Enable Docker Service:
+   
+   sudo systemctl start docker
+   sudo systemctl enable docker
+   
+
+4. Add Kubernetes Repository:
+   
+   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   
+
+5. Add Kubernetes Repository Key:
+   
+   curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+   
+
+6. Update Package Repositories:
+   
+   sudo apt update
+   
+
+7. Install Kubernetes Components:
+   
+   sudo apt install -y kubelet kubeadm kubectl
+   
+
+8. Hold Kubernetes Packages at Current Version:
+   
+   sudo apt-mark hold kubelet kubeadm kubectl
+   
+
+9. Set Up kubeconfig:
+   
+   mkdir -p $HOME/.kube
+   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+   sudo chown $(id -u):$(id -g) $HOME/.kube/config
+   
+
+10. Initialize Kubernetes Master:
+    
+    sudo kubeadm init
+    
+
+11. Set Up Pod Network (Calico):
+    
+    kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/etcd.yaml
+    kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/rbac.yaml
+    kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/calico.yaml
+    
+
+12. (Optional) Upgrade Calico:
+    
+    kubectl apply -f https://docs.projectcalico.org/v3.9/manifests/calico.yaml
+    
+
+13. Install Tigera Operator and Custom Resources for Calico:
+    
+    kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.1/manifests/tigera-operator.yaml
+    curl https://raw.githubusercontent.com/projectcalico/calico/v3.26.1/manifests/custom-resources.yaml -O
+    kubectl create -f custom-resources.yaml
+    
+
+14. Watch Calico Pods to Ensure Deployment:
+    
+    watch kubectl get pods -n calico-system
+    
+
+15. (Optional) Install Ingress Controller (NGINX):
+    
+    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.49.0/deploy/static/provider/baremetal/deploy.yaml
+    
+
+### Conclusion:
+After completing these steps, you should have a fully functional Kubernetes cluster set up on your Ubuntu nodes. You can verify the status of the cluster and begin deploying applications and services onto it. Remember to monitor the cluster's health and perform regular maintenance tasks as needed.
