@@ -1,0 +1,42 @@
+# SOP for Installing Jenkins on AWS EC2 (Amazon Linux 2023)
+
+### Prerequisites:
+- AWS EC2 instance with Amazon Linux 2023
+- Root or `sudo` privileges
+- Open port `8080` in security group for Jenkins
+
+### Steps:
+
+```bash
+# 1. SSH into the EC2 instance
+ssh -i /path_to_your_key.pem ec2-user@your_ec2_public_ip
+
+# 2. Switch to root user
+sudo su
+
+# 3. Update the system
+dnf update -y
+
+# 4. Install Java 17 (Amazon Corretto)
+dnf install java-17-amazon-corretto -y
+
+# 5. Add Jenkins repository
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+# 6. Import the Jenkins GPG key
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+
+# 7. Install Jenkins
+dnf install jenkins -y
+
+# 8. Start Jenkins
+systemctl start jenkins
+
+# 9. Verify Jenkins status
+systemctl status jenkins
+
+# 10. Enable Jenkins to start at boot
+systemctl enable jenkins
+
+# 11. Retrieve the initial admin password for Jenkins setup
+cat /var/lib/jenkins/secrets/initialAdminPassword
